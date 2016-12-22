@@ -13,7 +13,8 @@ export default function getResponsiveContainerStyles(
     anchorDirection === ANCHOR_LEFT ? windowWidth - containerEdge : containerEdge;
   const calculatedMargin = margin || 0;
 
-  newStyles[anchorDirection] = Math.min(currentOffset + calculatedOffset - calculatedMargin, 0);
+  //newStyles[anchorDirection] = Math.min(currentOffset + calculatedOffset - calculatedMargin, 0);
+  newStyles[anchorDirection] = 0;
 
   return newStyles;
 }
