@@ -451,7 +451,7 @@ export default class DayPicker extends React.Component {
               monthFormat={monthFormat}
             />
           </div>
-          <button type="button" onClick={console.log('hello')}>Press me</button>
+          <button type="button" onClick={() => {console.log('hello', this.props.someProp)}}>Press me</button>
         </OutsideClickHandler>
       </div>
     );
