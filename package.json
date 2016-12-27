@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run clean && npm run build:js && npm run build:css && npm run build:svg",
-    "build:js": "babel src/ -d lib/ --ignore src/components",
+    "build:js": "babel src/ -d lib/",
     "build:css": "node-sass css/styles.scss lib/css/_datepicker.css",
     "build:svg": "webpack"
   },
