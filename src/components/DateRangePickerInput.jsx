@@ -150,7 +150,6 @@ export default class DateRangePickerInput extends React.Component {
           onFocus={onEndDateFocus}
           onKeyDownTab={onEndDateTab}
         />
-        {/*<button type="button" onClick={onDatesChange}>Press me2</button>*/}
         {showClearDates &&
           <button
             type="button"
