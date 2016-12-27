@@ -7,7 +7,8 @@
     "build": "npm run clean && npm run build:js && npm run build:css && npm run build:svg",
     "build:js": "babel src/ -d lib/",
     "build:css": "node-sass css/styles.scss lib/css/_datepicker.css",
-    "build:svg": "webpack"
+    "build:svg": "webpack",
+    "clean": "rimraf lib"
   },
   "repository": {
     "type": "git",
