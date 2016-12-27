@@ -71,7 +71,6 @@ export default function DayPickerNavigation(props) {
       >
         {navNextIcon}
       </span>
-      <button type="button" onClick={console.log('hello')}>Press me</button>
     </div>
   );
 }

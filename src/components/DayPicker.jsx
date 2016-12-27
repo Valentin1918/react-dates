@@ -419,7 +419,7 @@ export default class DayPicker extends React.Component {
       <div className={dayPickerClassNames} style={dayPickerStyle} >
         <OutsideClickHandler onOutsideClick={onOutsideClick}>
           {this.renderNavigation()}
-
+          <button type="button" onClick={console.log('hello')}>Press me</button>
           <div className="DayPicker__week-headers">
             {weekHeaders}
           </div>
