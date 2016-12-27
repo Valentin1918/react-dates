@@ -262,7 +262,6 @@ export default class DateRangePicker extends React.Component {
 
     return (
       <div className="DateRangePicker">
-        <button type="button" onClick={onDatesChange}>Press me</button>
         <DateRangePickerInputController
           startDate={startDate}
           startDateId={startDateId}
