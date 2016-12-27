@@ -367,6 +367,7 @@ export default class DayPicker extends React.Component {
       onOutsideClick,
       monthFormat,
       onDatesChange,
+      onFocusChange,
       startDate,
       endDate
     } = this.props;
@@ -455,10 +456,10 @@ export default class DayPicker extends React.Component {
             />
           </div>
           <button type="button" onClick={() => {
-            console.log(this.props.action);
             console.log('startDate', startDate);
             console.log('endDate', endDate);
             console.log('onDatesChange', onDatesChange);
+            onFocusChange(null);
             onDatesChange({startDate, endDate}) }}>Apply</button>
         </OutsideClickHandler>
       </div>
