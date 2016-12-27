@@ -12,7 +12,7 @@ import getTransformStyles from '../utils/getTransformStyles';
 
 import OrientationShape from '../shapes/OrientationShape';
 
-import { HORIZONTAL_ORIENTATION, VERTICAL_ORIENTATION } from '../../constants';
+import { HORIZONTAL_ORIENTATION, VERTICAL_ORIENTATION, START_DATE, END_DATE } from '../../constants';
 
 const CALENDAR_MONTH_WIDTH = 300;
 const DAY_PICKER_PADDING = 9;
@@ -460,12 +460,15 @@ export default class DayPicker extends React.Component {
             console.log('endDate', endDate);
             if(startDate && endDate) {
               onDatesChange({startDate, endDate});
+              onFocusChange(null);
             } else if(!startDate && endDate) {
-              onDatesChange({endDate, endDate});
+              //onDatesChange({endDate, endDate});
+              onFocusChange(START_DATE);
             } else if(startDate && !endDate) {
-              onDatesChange({startDate, startDate});
+              //onDatesChange({startDate, startDate});
+              onFocusChange(END_DATE);
             }
-            onFocusChange(null);
+
           }}>Apply</button>
         </OutsideClickHandler>
       </div>
