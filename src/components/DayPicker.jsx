@@ -460,15 +460,15 @@ export default class DayPicker extends React.Component {
             console.log('endDate', endDate);
             if(startDate && endDate) {
               onDatesChange({startDate, endDate});
-              onFocusChange(null);
-            } else if(!startDate && endDate) {
-              //onDatesChange({endDate, endDate});
-              onFocusChange(START_DATE);
-            } else if(startDate && !endDate) {
-              //onDatesChange({startDate, startDate});
-              onFocusChange(END_DATE);
-            }
 
+            } else if(!startDate && endDate) {
+              onDatesChange({endDate, endDate});
+              //onFocusChange(START_DATE);
+            } else if(startDate && !endDate) {
+              onDatesChange({startDate, startDate});
+              //onFocusChange(END_DATE);
+            }
+            onFocusChange(null);
           }}>Apply</button>
         </OutsideClickHandler>
       </div>
