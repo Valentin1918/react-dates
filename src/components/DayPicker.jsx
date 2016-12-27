@@ -366,6 +366,7 @@ export default class DayPicker extends React.Component {
       onDayMouseLeave,
       onOutsideClick,
       monthFormat,
+      onDatesChange
     } = this.props;
 
     const numOfWeekHeaders = this.isVertical() ? 1 : numberOfMonths;
@@ -451,7 +452,7 @@ export default class DayPicker extends React.Component {
               monthFormat={monthFormat}
             />
           </div>
-          <button type="button" onClick={() => {console.log('hello', this.props.someProp)}}>Press me</button>
+          <button type="button" onClick={() => {console.log('hello', onDatesChange)}}>Press me</button>
         </OutsideClickHandler>
       </div>
     );

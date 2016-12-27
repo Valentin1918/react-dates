@@ -16,7 +16,7 @@ const today = moment().startOf('day');
 
 describe('DayPickerRangeController', () => {
   describe('#render()', () => {
-    it('renders <DayPicker someProp="Hello KAL"/>', () => {
+    it('renders <DayPicker />', () => {
       const wrapper = shallow(<DayPickerRangeController />);
       expect(wrapper.find(DayPicker)).to.have.length(1);
     });

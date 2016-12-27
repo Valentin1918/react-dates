@@ -263,6 +263,7 @@ export default class DayPickerRangeController extends React.Component {
 
     return (
       <DayPicker
+        onDatesChange={this.props.onDatesChange}
         ref={ref => { this.dayPicker = ref; }}
         orientation={orientation}
         enableOutsideDays={enableOutsideDays}
