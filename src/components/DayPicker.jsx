@@ -459,7 +459,7 @@ export default class DayPicker extends React.Component {
             console.log('startDate', startDate);
             console.log('endDate', endDate);
             console.log('onDatesChange', onDatesChange);
-            onDatesChange({startDate: startDate, endDate: endDate}) }}>Apply</button>
+            onDatesChange({startDate, endDate}) }}>Apply</button>
         </OutsideClickHandler>
       </div>
     );
