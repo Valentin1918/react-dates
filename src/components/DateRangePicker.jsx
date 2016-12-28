@@ -290,6 +290,7 @@ export default class DateRangePicker extends React.Component {
         />
         <button type="button" onClick={() => {
           onDatesApply(startDate, endDate);
+          onFocusChange(END_DATE);
           onFocusChange(null);
         }}>Apply</button>
         {this.maybeRenderDayPickerWithPortal()}
