@@ -24,6 +24,7 @@ const propTypes = {
   startDate: momentPropTypes.momentObj,
   endDate: momentPropTypes.momentObj,
   onDatesChange: PropTypes.func,
+  onDatesApply: PropTypes.func,
 
   focusedInput: FocusedInputShape,
   onFocusChange: PropTypes.func,
@@ -239,6 +240,7 @@ export default class DayPickerRangeController extends React.Component {
       enableOutsideDays,
       initialVisibleMonth,
       focusedInput,
+      onDatesApply,
       onFocusChange,
       startDate,
       endDate
@@ -266,6 +268,8 @@ export default class DayPickerRangeController extends React.Component {
 
     return (
       <DayPicker
+        onDatesApply={onDatesApply}
+        onFocusChange={onFocusChange}
         startDate={startDate}
         endDate={endDate}
         ref={ref => { this.dayPicker = ref; }}

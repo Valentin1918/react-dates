@@ -182,6 +182,7 @@ export default class DateRangePicker extends React.Component {
       endDate,
       minimumNights,
       keepOpenOnDateSelect,
+      onDatesApply
     } = this.props;
     const { dayPickerContainerStyles } = this.state;
 
@@ -194,6 +195,7 @@ export default class DateRangePicker extends React.Component {
         style={dayPickerContainerStyles}
       >
         <DayPickerRangeController
+          onDatesApply={onDatesApply}
           ref={ref => { this.dayPicker = ref; }}
           orientation={orientation}
           enableOutsideDays={enableOutsideDays}

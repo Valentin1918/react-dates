@@ -28,6 +28,8 @@ const propTypes = {
   withPortal: PropTypes.bool,
   hidden: PropTypes.bool,
   initialVisibleMonth: PropTypes.func,
+  onDatesApply: PropTypes.func,
+  onFocusChange: PropTypes.func,
 
   navPrev: PropTypes.node,
   navNext: PropTypes.node,
@@ -366,6 +368,8 @@ export default class DayPicker extends React.Component {
       onDayMouseLeave,
       onOutsideClick,
       monthFormat,
+      onDatesApply,
+      onFocusChange,
       startDate,
       endDate
     } = this.props;
@@ -453,6 +457,10 @@ export default class DayPicker extends React.Component {
               monthFormat={monthFormat}
             />
           </div>
+          <button type="button" onClick={() => {
+            onDatesApply(startDate, endDate);
+            onFocusChange(null);
+          }}>Apply</button>
         </OutsideClickHandler>
       </div>
     );
