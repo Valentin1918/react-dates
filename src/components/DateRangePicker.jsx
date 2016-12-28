@@ -52,6 +52,7 @@ const defaultProps = {
   withFullScreenPortal: false,
 
   onDatesChange() {},
+  onDatesApply() {},
   onFocusChange() {},
   onPrevMonthClick() {},
   onNextMonthClick() {},

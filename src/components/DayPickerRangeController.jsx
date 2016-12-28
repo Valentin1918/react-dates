@@ -24,6 +24,7 @@ const propTypes = {
   startDate: momentPropTypes.momentObj,
   endDate: momentPropTypes.momentObj,
   onDatesChange: PropTypes.func,
+  onDatesApply: PropTypes.func,
 
   focusedInput: FocusedInputShape,
   onFocusChange: PropTypes.func,

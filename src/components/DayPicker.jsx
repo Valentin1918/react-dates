@@ -28,6 +28,8 @@ const propTypes = {
   withPortal: PropTypes.bool,
   hidden: PropTypes.bool,
   initialVisibleMonth: PropTypes.func,
+  onDatesApply: PropTypes.func,
+  onFocusChange: PropTypes.func,
 
   navPrev: PropTypes.node,
   navNext: PropTypes.node,
@@ -456,10 +458,6 @@ export default class DayPicker extends React.Component {
             />
           </div>
           <button type="button" onClick={() => {
-            console.log('startDate', startDate);
-            console.log('endDate', endDate);
-
-
             onDatesApply(startDate, endDate);
             onFocusChange(null);
           }}>Apply</button>
