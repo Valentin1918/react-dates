@@ -366,7 +366,7 @@ export default class DayPicker extends React.Component {
       onDayMouseLeave,
       onOutsideClick,
       monthFormat,
-      onDatesChange,
+      onDatesApply,
       onFocusChange,
       startDate,
       endDate
@@ -460,17 +460,7 @@ export default class DayPicker extends React.Component {
             console.log('endDate', endDate);
 
 
-            {/*if(startDate && endDate) {*/}
-              {/*onDatesChange({startDate, endDate});*/}
-            {/*} else if(!startDate && endDate) {*/}
-              {/*let localStartDate = {...endDate};*/}
-              {/*onDatesChange({localStartDate, endDate});*/}
-            {/*} else if(startDate && !endDate) {*/}
-              {/*let localEndDate = {...startDate};*/}
-              {/*onDatesChange({localEndDate, startDate});*/}
-            {/*}*/}
-
-            onDatesChange({startDate, endDate});
+            onDatesApply(startDate, endDate);
             onFocusChange(null);
           }}>Apply</button>
         </OutsideClickHandler>

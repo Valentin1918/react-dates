@@ -170,7 +170,7 @@ export default class DateRangePicker extends React.Component {
       navNext,
       onPrevMonthClick,
       onNextMonthClick,
-      onDatesChange,
+      onDatesApply,
       onFocusChange,
       withPortal,
       withFullScreenPortal,
@@ -203,7 +203,7 @@ export default class DateRangePicker extends React.Component {
           onDayTouchTap={this.onDayClick}
           onPrevMonthClick={onPrevMonthClick}
           onNextMonthClick={onNextMonthClick}
-          onDatesChange={onDatesChange}
+          onDatesApply={onDatesApply}
           onFocusChange={onFocusChange}
           focusedInput={focusedInput}
           startDate={startDate}

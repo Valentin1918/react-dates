@@ -239,7 +239,7 @@ export default class DayPickerRangeController extends React.Component {
       enableOutsideDays,
       initialVisibleMonth,
       focusedInput,
-      onDatesChange,
+      onDatesApply,
       onFocusChange,
       startDate,
       endDate
@@ -267,7 +267,7 @@ export default class DayPickerRangeController extends React.Component {
 
     return (
       <DayPicker
-        onDatesChange={onDatesChange}
+        onDatesApply={onDatesApply}
         onFocusChange={onFocusChange}
         startDate={startDate}
         endDate={endDate}
