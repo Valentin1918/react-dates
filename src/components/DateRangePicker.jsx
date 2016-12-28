@@ -172,7 +172,6 @@ export default class DateRangePicker extends React.Component {
       onPrevMonthClick,
       onNextMonthClick,
       onDatesChange,
-      onDatesApply,
       onFocusChange,
       withPortal,
       withFullScreenPortal,
@@ -206,7 +205,6 @@ export default class DateRangePicker extends React.Component {
           onPrevMonthClick={onPrevMonthClick}
           onNextMonthClick={onNextMonthClick}
           onDatesChange={onDatesChange}
-          onDatesApply={onDatesApply}
           onFocusChange={onFocusChange}
           focusedInput={focusedInput}
           startDate={startDate}
@@ -261,13 +259,11 @@ export default class DateRangePicker extends React.Component {
       keepOpenOnDateSelect,
       onDatesChange,
       onFocusChange,
+      onDatesApply
     } = this.props;
 
     return (
       <div className="DateRangePicker">
-        <button type="button" onClick={() => {
-          console.log('message');
-        }}>Apply</button>
         <DateRangePickerInputController
           startDate={startDate}
           startDateId={startDateId}
@@ -290,7 +286,10 @@ export default class DateRangePicker extends React.Component {
           onFocusChange={onFocusChange}
           phrases={phrases}
         />
-
+        <button type="button" onClick={() => {
+          onDatesApply(startDate, endDate);
+          onFocusChange(null);
+        }}>Apply</button>
         {this.maybeRenderDayPickerWithPortal()}
       </div>
     );
