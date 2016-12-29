@@ -287,10 +287,15 @@ export default class DateRangePicker extends React.Component {
           onFocusChange={onFocusChange}
           phrases={phrases}
         />
-        <button type="button" onClick={() => {
-          onDatesApply(startDate, endDate);
-          onFocusChange(null);
-        }}>{buttonName}</button>
+
+        <div class="g-form-group g-form-group--button">
+          <button class="g-btn g-btn-auto-width g-btn-primary-empty g-btn--sm myac-audit-trails-datapicker__button" onClick={() => {
+            onDatesApply(startDate, endDate);
+            onFocusChange(null);
+          }}><i class="i i-check"></i><span>{buttonName}</span>
+          </button>
+        </div>
+
         {this.maybeRenderDayPickerWithPortal()}
       </div>
     );
