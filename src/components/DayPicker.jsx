@@ -73,6 +73,7 @@ const defaultProps = {
   onNextMonthClick() {},
   onOutsideClick() {},
 
+
   // i18n
   monthFormat: 'MMMM YYYY',
 };
