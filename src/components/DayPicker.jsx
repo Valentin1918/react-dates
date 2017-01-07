@@ -78,6 +78,62 @@ const defaultProps = {
   monthFormat: 'MMMM YYYY',
 };
 
+function applyTransformStyles(el, transform, opacity = '') {
+  const transformStyles = getTransformStyles(transform);
+  transformStyles.opacity = opacity;
+
+  Object.keys(transformStyles).forEach((styleKey) => {
+    // eslint-disable-next-line no-param-reassign
+    el.style[styleKey] = transformStyles[styleKey];
+  });
+}
+
+export function calculateDimension(el, axis, borderBox = false, withMargin = false) {
+  if (!el) {
+    return 0;
+  }
+
+  const axisStart = (axis === 'width') ? 'Left' : 'Top';
+  const axisEnd = (axis === 'width') ? 'Right' : 'Bottom';
+
+  // Only read styles if we need to
+  const style = (!borderBox || withMargin) ? window.getComputedStyle(el) : {};
+
+  // Offset includes border and padding
+  let size = (axis === 'width') ? el.offsetWidth : el.offsetHeight;
+
+  // Get the inner size
+  if (!borderBox) {
+    size -= (
+      parseFloat(style[`padding${axisStart}`]) +
+      parseFloat(style[`padding${axisEnd}`]) +
+      parseFloat(style[`border${axisStart}Width`]) +
+      parseFloat(style[`border${axisEnd}Width`])
+    );
+  }
+
+  // Apply margin
+  if (withMargin) {
+    size += (
+      parseFloat(style[`margin${axisStart}`]) +
+      parseFloat(style[`margin${axisEnd}`])
+    );
+  }
+
+  return size;
+}
+
+function getMonthHeight(el) {
+  const caption = el.querySelector('.js-CalendarMonth__caption');
+  const grid = el.querySelector('.js-CalendarMonth__grid');
+
+  // Need to separate out table children for FF
+  // Add an additional +1 for the border
+  return (
+    calculateDimension(caption, 'height', true, true) + calculateDimension(grid, 'height') + 1
+  );
+}
+
 export default class DayPicker extends React.Component {
   constructor(props) {
     super(props);
@@ -97,6 +153,7 @@ export default class DayPicker extends React.Component {
   componentDidMount() {
     if (this.isHorizontal()) {
       this.adjustDayPickerHeight();
+      this.initializeDayPickerWidth();
     }
   }
 
@@ -168,66 +225,9 @@ export default class DayPicker extends React.Component {
   }
 
   getMonthHeightByIndex(i) {
-    return this.getMonthHeight(
-      ReactDOM.findDOMNode(this.refs.transitionContainer).querySelectorAll('.CalendarMonth')[i]
+    return getMonthHeight(
+      ReactDOM.findDOMNode(this.refs.transitionContainer).querySelectorAll('.CalendarMonth')[i],
     );
-  }
-
-  getMonthHeight(el) {
-    const caption = el.querySelector('.js-CalendarMonth__caption');
-    const grid = el.querySelector('.js-CalendarMonth__grid');
-
-    // Need to separate out table children for FF
-    // Add an additional +1 for the border
-    return (
-      this.calculateDimension(caption, 'height', true, true) +
-      this.calculateDimension(grid, 'height') + 1
-    );
-  }
-
-  applyTransformStyles(el, transform, opacity = '') {
-    const transformStyles = getTransformStyles(transform);
-    transformStyles.opacity = opacity;
-
-    Object.keys(transformStyles).forEach((styleKey) => {
-      // eslint-disable-next-line no-param-reassign
-      el.style[styleKey] = transformStyles[styleKey];
-    });
-  }
-
-  calculateDimension(el, axis, borderBox = false, withMargin = false) {
-    if (!el) {
-      return 0;
-    }
-
-    const axisStart = (axis === 'width') ? 'Left' : 'Top';
-    const axisEnd = (axis === 'width') ? 'Right' : 'Bottom';
-
-    // Only read styles if we need to
-    const style = (!borderBox || withMargin) ? window.getComputedStyle(el) : {};
-
-    // Offset includes border and padding
-    let size = (axis === 'width') ? el.offsetWidth : el.offsetHeight;
-
-    // Get the inner size
-    if (!borderBox) {
-      size -= (
-        parseFloat(style[`padding${axisStart}`]) +
-        parseFloat(style[`padding${axisEnd}`]) +
-        parseFloat(style[`border${axisStart}Width`]) +
-        parseFloat(style[`border${axisEnd}Width`])
-      );
-    }
-
-    // Apply margin
-    if (withMargin) {
-      size += (
-        parseFloat(style[`margin${axisStart}`]) +
-        parseFloat(style[`margin${axisEnd}`])
-      );
-    }
-
-    return size;
   }
 
   isHorizontal() {
@@ -239,10 +239,12 @@ export default class DayPicker extends React.Component {
   }
 
   initializeDayPickerWidth() {
-    this.dayPickerWidth = this.calculateDimension(
+    console.log('this', this);
+    console.log('calculateDimension', calculateDimension);
+    this.dayPickerWidth = calculateDimension(
       ReactDOM.findDOMNode(this.refs.calendarMonthGrid).querySelector('.CalendarMonth'),
       'width',
-      true
+      true,
     );
   }
 
@@ -257,9 +259,9 @@ export default class DayPicker extends React.Component {
     }
 
     // clear the previous transforms
-    this.applyTransformStyles(
+    applyTransformStyles(
       ReactDOM.findDOMNode(this.refs.calendarMonthGrid).querySelector('.CalendarMonth'),
-      'none'
+      'none',
     );
 
     this.setState({
@@ -273,16 +275,15 @@ export default class DayPicker extends React.Component {
     const transitionContainer = ReactDOM.findDOMNode(this.refs.transitionContainer);
     const heights = [];
 
-    // convert node list to array
-    [...transitionContainer.querySelectorAll('.CalendarMonth')].forEach((el) => {
+    Array.prototype.forEach.call(transitionContainer.querySelectorAll('.CalendarMonth'), (el) => {
       if (el.getAttribute('data-visible') === 'true') {
-        heights.push(this.getMonthHeight(el));
+        heights.push(getMonthHeight(el));
       }
     });
 
     const newMonthHeight = Math.max(...heights) + MONTH_PADDING;
 
-    if (newMonthHeight !== this.calculateDimension(transitionContainer, 'height')) {
+    if (newMonthHeight !== calculateDimension(transitionContainer, 'height')) {
       this.monthHeight = newMonthHeight;
       transitionContainer.style.height = `${newMonthHeight}px`;
     }
@@ -292,10 +293,10 @@ export default class DayPicker extends React.Component {
     const transformType = this.isVertical() ? 'translateY' : 'translateX';
     const transformValue = `${transformType}(-${translationValue}px)`;
 
-    this.applyTransformStyles(
+    applyTransformStyles(
       ReactDOM.findDOMNode(this.refs.transitionContainer).querySelector('.CalendarMonth'),
       transformValue,
-      1
+      1,
     );
   }
 
@@ -317,12 +318,8 @@ export default class DayPicker extends React.Component {
   }
 
   renderWeekHeader(index) {
-    const { numberOfMonths } = this.props;
-
-    const widthPercentage = 100 / numberOfMonths;
     const horizontalStyle = {
-      width: `${widthPercentage}%`,
-      left: `${widthPercentage * index}%`,
+      left: index * CALENDAR_MONTH_WIDTH,
     };
 
     const style = this.isHorizontal() ? horizontalStyle : {};
@@ -332,7 +329,7 @@ export default class DayPicker extends React.Component {
       header.push(
         <li key={i}>
           <small>{moment().weekday(i).format('dd')}</small>
-        </li>
+        </li>,
       );
     }
 

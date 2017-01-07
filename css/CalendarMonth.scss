@@ -9,6 +9,7 @@
     position: absolute;
     z-index: -1;
     opacity: 0;
+    pointer-events: none;
   }
 
   table {
@@ -48,6 +49,16 @@
 
   &:active {
     background: darken($react-dates-color-white, 5%);
+  }
+}
+
+.CalendarMonth__day--highlighted-calendar {
+  background: $react-dates-color-highlighted;
+  color: $react-dates-color-gray;
+  cursor: default;
+
+  &:active {
+    background: $react-dates-color-secondary;
   }
 }
 

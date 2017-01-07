@@ -33,6 +33,7 @@ const defaultProps = {
   focusedInput: null,
   minimumNights: 1,
   isDayBlocked: () => false,
+  isDayHighlighted: () => false,
   isOutsideRange: day => !isInclusivelyAfterDay(day, moment()),
   enableOutsideDays: false,
   numberOfMonths: 2,
@@ -140,7 +141,7 @@ export default class DateRangePicker extends React.Component {
           anchorDirection,
           currentOffset,
           containerEdge,
-          horizontalMargin
+          horizontalMargin,
         ),
       });
     }
@@ -163,6 +164,7 @@ export default class DateRangePicker extends React.Component {
   renderDayPicker() {
     const {
       isDayBlocked,
+      isDayHighlighted,
       isOutsideRange,
       numberOfMonths,
       orientation,
@@ -189,12 +191,12 @@ export default class DateRangePicker extends React.Component {
 
     return (
       <div
-        ref={ref => { this.dayPickerContainer = ref; }}
+        ref={(ref) => { this.dayPickerContainer = ref; }}
         className={this.getDayPickerContainerClasses()}
         style={dayPickerContainerStyles}
       >
         <DayPickerRangeController
-          ref={ref => { this.dayPicker = ref; }}
+          ref={(ref) => { this.dayPicker = ref; }}
           orientation={orientation}
           enableOutsideDays={enableOutsideDays}
           numberOfMonths={numberOfMonths}
@@ -218,6 +220,7 @@ export default class DateRangePicker extends React.Component {
           navNext={navNext}
           minimumNights={minimumNights}
           isOutsideRange={isOutsideRange}
+          isDayHighlighted={isDayHighlighted}
           isDayBlocked={isDayBlocked}
           keepOpenOnDateSelect={keepOpenOnDateSelect}
         />
