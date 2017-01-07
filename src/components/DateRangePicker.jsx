@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import moment from 'moment';
 import cx from 'classnames';
 import Portal from 'react-portal';
+import classnames from 'classnames';
 
 import isTouchDevice from '../utils/isTouchDevice';
 import getResponsiveContainerStyles from '../utils/getResponsiveContainerStyles';
@@ -73,7 +74,7 @@ export default class DateRangePicker extends React.Component {
     this.state = {
       dayPickerContainerStyles: {},
     };
-
+    this.focusedInputArr = [];
     this.isTouchDevice = isTouchDevice();
 
     this.onOutsideClick = this.onOutsideClick.bind(this);
@@ -266,6 +267,11 @@ export default class DateRangePicker extends React.Component {
       buttonName
     } = this.props;
 
+    this.focusedInputArr.push(focusedInput);
+    let buttonClass = classnames("g-btn g-btn-auto-width g-btn-primary-empty g-btn--sm myac-audit-trails-datapicker__button", {
+      "hide": !(this.focusedInputArr.length > 1 && (this.focusedInputArr[this.focusedInputArr.length - 2] === START_DATE && this.focusedInputArr[this.focusedInputArr.length - 1] === END_DATE))
+    });
+
     return (
       <div className="DateRangePicker">
         <DateRangePickerInputController
@@ -291,7 +297,7 @@ export default class DateRangePicker extends React.Component {
           phrases={phrases}
         />
 
-        <button className="g-btn g-btn-auto-width g-btn-primary-empty g-btn--sm myac-audit-trails-datapicker__button" onClick={() => {
+        <button className={buttonClass} onClick={() => {
           onDatesApply(startDate, endDate);
           onFocusChange(null);
         }}><i className="i i-check"></i><span>{buttonName}</span>
