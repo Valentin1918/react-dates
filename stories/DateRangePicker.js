@@ -108,6 +108,9 @@ storiesOf('DateRangePicker', module)
   .addWithInfo('single month', () => (
     <DateRangePickerWrapper numberOfMonths={1} />
   ))
+  .addWithInfo('3 months', () => (
+    <DateRangePickerWrapper numberOfMonths={3} />
+  ))
   .addWithInfo('anchored right', () => (
     <div style={{ float: 'right' }}>
       <DateRangePickerWrapper
@@ -216,6 +219,11 @@ storiesOf('DateRangePicker', module)
   .addWithInfo('with some blocked dates', () => (
     <DateRangePickerWrapper
       isDayBlocked={day1 => datesList.some(day2 => isSameDay(day1, day2))}
+    />
+  ))
+  .addWithInfo('with some highlighted dates', () => (
+    <DateRangePickerWrapper
+      isDayHighlighted={day1 => datesList.some(day2 => isSameDay(day1, day2))}
     />
   ))
   .addWithInfo('with month specified on open', () => (

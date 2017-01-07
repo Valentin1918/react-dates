@@ -43,6 +43,7 @@ const defaultProps = {
   onFocusChange() {},
 
   isDayBlocked: () => false,
+  isDayHighlighted: () => false,
   disabledDays: [],
   isOutsideRange: day => !isInclusivelyAfterDay(day, moment()),
   enableOutsideDays: false,
@@ -74,6 +75,8 @@ export default class SingleDatePicker extends React.Component {
       hoverDate: null,
     };
 
+    this.today = moment();
+
     this.onDayMouseEnter = this.onDayMouseEnter.bind(this);
     this.onDayMouseLeave = this.onDayMouseLeave.bind(this);
     this.onDayClick = this.onDayClick.bind(this);
@@ -90,6 +93,10 @@ export default class SingleDatePicker extends React.Component {
   componentDidMount() {
     window.addEventListener('resize', this.responsivizePickerPosition);
     this.responsivizePickerPosition();
+  }
+
+  componentWillUpdate() {
+    this.today = moment();
   }
 
   /* istanbul ignore next */
@@ -201,7 +208,7 @@ export default class SingleDatePicker extends React.Component {
           anchorDirection,
           currentOffset,
           containerEdge,
-          horizontalMargin
+          horizontalMargin,
         ),
       });
     }
@@ -218,6 +225,10 @@ export default class SingleDatePicker extends React.Component {
 
   isSelected(day) {
     return isSameDay(day, this.props.date);
+  }
+
+  isToday(day) {
+    return isSameDay(day, this.today);
   }
 
   maybeRenderDayPickerWithPortal() {
@@ -237,6 +248,7 @@ export default class SingleDatePicker extends React.Component {
   renderDayPicker() {
     const {
       isDayBlocked,
+      isDayHighlighted,
       isOutsideRange,
       enableOutsideDays,
       numberOfMonths,
@@ -254,9 +266,11 @@ export default class SingleDatePicker extends React.Component {
     const { dayPickerContainerStyles } = this.state;
 
     const modifiers = {
+      today: day => this.isToday(day),
       blocked: day => this.isBlocked(day),
       'blocked-calendar': day => isDayBlocked(day),
       'blocked-out-of-range': day => isOutsideRange(day),
+      'highlighted-calendar': day => isDayHighlighted(day),
       valid: day => !this.isBlocked(day),
       hovered: day => this.isHovered(day),
       selected: day => this.isSelected(day),
@@ -266,7 +280,7 @@ export default class SingleDatePicker extends React.Component {
 
     return (
       <div
-        ref={ref => { this.dayPickerContainer = ref; }}
+        ref={(ref) => { this.dayPickerContainer = ref; }}
         className={this.getDayPickerContainerClasses()}
         style={dayPickerContainerStyles}
       >

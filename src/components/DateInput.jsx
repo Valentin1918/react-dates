@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import cx from 'classnames';
 
 import isTouchDevice from '../utils/isTouchDevice';
@@ -56,10 +55,13 @@ export default class DateInput extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { focused } = this.props;
-    if (prevProps.focused !== focused && focused) {
-      const startDateInput = ReactDOM.findDOMNode(this.inputRef);
-      startDateInput.focus();
-      startDateInput.select();
+    if (prevProps.focused === focused) return;
+
+    if (focused) {
+      this.inputRef.focus();
+      this.inputRef.select();
+    } else {
+      this.inputRef.blur();
     }
   }
 
@@ -120,7 +122,6 @@ export default class DateInput extends React.Component {
           onFocus={onFocus}
           placeholder={placeholder}
           autoComplete="off"
-          maxLength={10}
           disabled={disabled}
           readOnly={this.isTouchDevice}
           required={required}

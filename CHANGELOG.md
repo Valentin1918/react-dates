@@ -1,9 +1,30 @@
 # Change Log
 
+## v4.3.1
+ - [fix] Don’t create an unnecessary array from a NodeList, which avoids needing `Array.from` ([#233](https://github.com/airbnb/react-dates/pull/233))
+
+## v4.3.0
+ - [new] Add today modifier to the `SingleDatePicker` component ([#218](https://github.com/airbnb/react-dates/pull/218))
+ - [fix] Fix week header alignment when `numberOfMonths` is greater than 2 ([#221](https://github.com/airbnb/react-dates/pull/221))
+ - [fix] Fix `transition`/`transform` prefixing on `.CalendarMonthGrid--animating` class ([#220](https://github.com/airbnb/react-dates/pull/220))
+ - [fix] Do not allow `pointer-events` on invisible first month ([#227](https://github.com/airbnb/react-dates/pull/227))
+ - [fix] Remove `maxLength` attribute from inputs ([#219](https://github.com/airbnb/react-dates/pull/219))
+
+## v4.2.0
+ - [new] Add `isDayHighlighted` prop to the DRP/SDP which applies a `highlighted-calendar` to the relevant days ([#206](https://github.com/airbnb/react-dates/pull/206))
+ - [new] Add `today` modifier to the `DayPickerRangeController` component ([#213](https://github.com/airbnb/react-dates/pull/213))
+
+## v4.1.2
+ - [fix] `DayPicker` now has initial width set, even before any other interaction ([#215](https://github.com/airbnb/react-dates/pull/215))
+
+## v4.1.1
+ - [fix] Fix issue where the DayPicker height and width were not always being set initially ([#196](https://github.com/airbnb/react-dates/pull/196))
+ - [fix] Fix closed DRP/SDP refocus issue on window blur and refocus ([#212](https://github.com/airbnb/react-dates/pull/212))
+
 ## v4.1.0
- - [new] Separates out date range input event handling logic into the `DateRangePickerInputController` component ([#180](https://github.com/airbnb/react-dates/pull/180))
- - [fix] Only responsivizes the DRP and SDP when `withPortal` and `withFullScreenPortal` options are false ([#183](https://github.com/airbnb/react-dates/pull/183))
- - [new] Separates out date range calendar event handling logic and styles into the `DayPickerRangeController` component ([#167](https://github.com/airbnb/react-dates/pull/167))
+ - [new] Separate out date range input event handling logic into the `DateRangePickerInputController` component ([#180](https://github.com/airbnb/react-dates/pull/180))
+ - [fix] Only responsivize the DRP and SDP when `withPortal` and `withFullScreenPortal` options are false ([#183](https://github.com/airbnb/react-dates/pull/183))
+ - [new] Separate out date range calendar event handling logic and styles into the `DayPickerRangeController` component ([#167](https://github.com/airbnb/react-dates/pull/167))
 
 ## v4.0.2
  - [patch] Revert [#176](https://github.com/airbnb/react-dates/pull/176) ([#189](https://github.com/airbnb/react-dates/pull/189))

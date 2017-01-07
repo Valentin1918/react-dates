@@ -32,6 +32,7 @@ const propTypes = {
   minimumNights: PropTypes.number,
   isOutsideRange: PropTypes.func,
   isDayBlocked: PropTypes.func,
+  isDayHighlighted: PropTypes.func,
 
   // DayPicker props
   enableOutsideDays: PropTypes.bool,
@@ -70,6 +71,7 @@ const defaultProps = {
   minimumNights: 1,
   isOutsideRange() {},
   isDayBlocked() {},
+  isDayHighlighted() {},
 
   // DayPicker props
   enableOutsideDays: false,
@@ -107,10 +109,15 @@ export default class DayPickerRangeController extends React.Component {
     };
 
     this.isTouchDevice = isTouchDevice();
+    this.today = moment();
 
     this.onDayClick = this.onDayClick.bind(this);
     this.onDayMouseEnter = this.onDayMouseEnter.bind(this);
     this.onDayMouseLeave = this.onDayMouseLeave.bind(this);
+  }
+
+  componentWillUpdate() {
+    this.today = moment();
   }
 
   onDayClick(day, modifiers, e) {
@@ -223,9 +230,14 @@ export default class DayPickerRangeController extends React.Component {
     return isDayBlocked(day) || isOutsideRange(day) || this.doesNotMeetMinimumNights(day);
   }
 
+  isToday(day) {
+    return isSameDay(day, this.today);
+  }
+
   render() {
     const {
       isDayBlocked,
+      isDayHighlighted,
       isOutsideRange,
       numberOfMonths,
       orientation,
@@ -242,10 +254,12 @@ export default class DayPickerRangeController extends React.Component {
     } = this.props;
 
     const modifiers = {
+      today: day => this.isToday(day),
       blocked: day => this.isBlocked(day),
       'blocked-calendar': day => isDayBlocked(day),
       'blocked-out-of-range': day => isOutsideRange(day),
       'blocked-minimum-nights': day => this.doesNotMeetMinimumNights(day),
+      'highlighted-calendar': day => isDayHighlighted(day),
       valid: day => !this.isBlocked(day),
       // before anything has been set or after both are set
       hovered: day => this.isHovered(day),
@@ -263,7 +277,7 @@ export default class DayPickerRangeController extends React.Component {
 
     return (
       <DayPicker
-        ref={ref => { this.dayPicker = ref; }}
+        ref={(ref) => { this.dayPicker = ref; }}
         orientation={orientation}
         enableOutsideDays={enableOutsideDays}
         modifiers={modifiers}
