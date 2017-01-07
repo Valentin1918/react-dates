@@ -73,7 +73,7 @@ export default class DateRangePicker extends React.Component {
     this.state = {
       dayPickerContainerStyles: {},
     };
-
+    this.focusedInputArr = [];
     this.isTouchDevice = isTouchDevice();
 
     this.onOutsideClick = this.onOutsideClick.bind(this);
@@ -186,7 +186,7 @@ export default class DateRangePicker extends React.Component {
       keepOpenOnDateSelect
     } = this.props;
     const { dayPickerContainerStyles } = this.state;
-    this.focusedInputArr = [];
+
     const onOutsideClick = !withFullScreenPortal ? this.onOutsideClick : undefined;
 
     return (
@@ -266,7 +266,7 @@ export default class DateRangePicker extends React.Component {
       buttonName
     } = this.props;
 
-    renderDayPicker.focusedInputArr.push(focusedInput);
+    this.focusedInputArr.push(focusedInput);
     console.log(this.focusedInputArr);
     return (
       <div className="DateRangePicker">
