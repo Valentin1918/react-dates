@@ -266,7 +266,7 @@ export default class DateRangePicker extends React.Component {
       buttonName
     } = this.props;
 
-    this.focusedInputArr.push(focusedInput);
+    renderDayPicker.focusedInputArr.push(focusedInput);
     console.log(this.focusedInputArr);
     return (
       <div className="DateRangePicker">
