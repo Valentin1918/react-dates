@@ -186,7 +186,7 @@ export default class DateRangePicker extends React.Component {
       keepOpenOnDateSelect
     } = this.props;
     const { dayPickerContainerStyles } = this.state;
-
+    this.focusedInputArr = [];
     const onOutsideClick = !withFullScreenPortal ? this.onOutsideClick : undefined;
 
     return (
@@ -265,7 +265,9 @@ export default class DateRangePicker extends React.Component {
       onDatesApply,
       buttonName
     } = this.props;
-    console.log(focusedInput);
+
+    this.focusedInputArr.push(focusedInput);
+    console.log(this.focusedInputArr);
     return (
       <div className="DateRangePicker">
         <DateRangePickerInputController
