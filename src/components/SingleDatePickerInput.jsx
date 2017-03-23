@@ -93,14 +93,14 @@ export default class SingleDatePickerInput extends React.Component {
     } = this.props;
 
     const inputIcon = customInputIcon || (<CalendarIcon />);
-console.log(inputIcon);
+
     return (
       <div className="SingleDatePickerInput">
 
         {(showDefaultInputIcon || customInputIcon !== null) && (
           <button
             type="button"
-            className="SingleDatePickerInput__calendar-icon"
+            className="DateRangePickerInput__calendar-icon"
             onClick={onFocus}
           >
             {inputIcon}
