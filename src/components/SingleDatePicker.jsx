@@ -332,8 +332,6 @@ export default class SingleDatePicker extends React.Component {
       phrases,
       withPortal,
       withFullScreenPortal,
-      showDefaultInputIcon,
-      customInputIcon
     } = this.props;
 
     const dateString = this.getDateString(date);
@@ -351,8 +349,6 @@ export default class SingleDatePicker extends React.Component {
           onClearDate={this.clearDate}
           showClearDate={showClearDate}
           dateValue={dateString}
-          showDefaultInputIcon={showDefaultInputIcon}
-          customInputIcon={customInputIcon}
           onChange={this.onChange}
           onFocus={this.onFocus}
           onKeyDownShiftTab={this.onClearFocus}

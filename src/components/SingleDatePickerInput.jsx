@@ -3,7 +3,6 @@ import cx from 'classnames';
 
 import DateInput from './DateInput';
 import CloseButton from '../svg/close.svg';
-import CalendarIcon from '../svg/calendar.svg';
 
 const propTypes = {
   id: PropTypes.string.isRequired,
@@ -87,25 +86,11 @@ export default class SingleDatePickerInput extends React.Component {
       onChange,
       onFocus,
       onKeyDownShiftTab,
-      onKeyDownTab,
-      showDefaultInputIcon,
-      customInputIcon
+      onKeyDownTab
     } = this.props;
-
-    const inputIcon = customInputIcon || (<CalendarIcon />);
 
     return (
       <div className="SingleDatePickerInput">
-
-        {(showDefaultInputIcon || customInputIcon !== null) && (
-          <button
-            type="button"
-            className="DateRangePickerInput__calendar-icon"
-            onClick={onFocus}
-          >
-            {inputIcon}
-          </button>
-        )}
 
         <DateInput
           id={id}
