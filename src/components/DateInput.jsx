@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 
 import isTouchDevice from '../utils/isTouchDevice';
+import toMomentObject from '../utils/toMomentObject';
+import { YMD_REPLACE, SEPARATOR_REPLACE } from '../../constants';
 
 const propTypes = {
   id: PropTypes.string.isRequired,
@@ -40,6 +42,7 @@ export default class DateInput extends React.Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
 
     this.isTouchDevice = isTouchDevice();
@@ -66,10 +69,20 @@ export default class DateInput extends React.Component {
   }
 
   onChange(e) {
+    const { displayFormat, onChange } = this.props;
     const dateString = e.target.value;
+    const separatorPattern = displayFormat.replace(SEPARATOR_REPLACE, s => s + '?');
+    const dateFormatPattern = separatorPattern.replace(YMD_REPLACE, '\\d?');
+    const reg = new RegExp('^' + dateFormatPattern + '$');
 
-    this.setState({ dateString });
-    this.props.onChange(dateString);
+    reg.test(dateString) && this.setState({ dateString });
+    onChange(dateString);
+  }
+
+  onBlur(e) {
+    const dateString = e.target.value;
+    const correctDate = toMomentObject(dateString, this.props.displayFormat);
+    !correctDate && this.setState({ dateString: '' });
   }
 
   onKeyDown(e) {
@@ -120,6 +133,7 @@ export default class DateInput extends React.Component {
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
           //onFocus={onFocus}
+          onBlur={this.onBlur}
           placeholder={placeholder}
           autoComplete="off"
           disabled={disabled}

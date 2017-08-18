@@ -23,6 +23,7 @@ import {
   VERTICAL_ORIENTATION,
   ANCHOR_LEFT,
   ANCHOR_RIGHT,
+  ISO_FORMAT,
 } from '../../constants';
 
 const propTypes = SingleDatePickerShape;
@@ -332,6 +333,7 @@ export default class SingleDatePicker extends React.Component {
       phrases,
       withPortal,
       withFullScreenPortal,
+      displayFormat,
     } = this.props;
 
     const dateString = this.getDateString(date);
@@ -350,6 +352,7 @@ export default class SingleDatePicker extends React.Component {
           showClearDate={showClearDate}
           dateValue={dateString}
           onChange={this.onChange}
+          displayFormat={displayFormat || ISO_FORMAT}
           onFocus={this.onFocus}
           onKeyDownShiftTab={this.onClearFocus}
           onKeyDownTab={this.onClearFocus}

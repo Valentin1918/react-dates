@@ -86,7 +86,8 @@ export default class SingleDatePickerInput extends React.Component {
       onChange,
       onFocus,
       onKeyDownShiftTab,
-      onKeyDownTab
+      onKeyDownTab,
+      displayFormat,
     } = this.props;
 
     return (
@@ -100,7 +101,7 @@ export default class SingleDatePickerInput extends React.Component {
           disabled={disabled}
           required={required}
           showCaret={showCaret}
-
+          displayFormat={displayFormat}
           onChange={onChange}
           onFocus={onFocus}
           onKeyDownShiftTab={onKeyDownShiftTab}
